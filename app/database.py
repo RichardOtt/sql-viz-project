@@ -6,9 +6,9 @@ def get_wells(connection_string, depth, gradient):
     conn = engine.connect()
     query = """SELECT latitude, longitude, depth, gradient
                FROM wells
-               WHERE depth > {} AND gradient > {};"""
+               WHERE depth > %s AND gradient > %s;"""
     
-    r = conn.execute(query.format(depth, gradient))
+    r = conn.execute(query, (depth, gradient))
     
     return r.fetchall()
 
